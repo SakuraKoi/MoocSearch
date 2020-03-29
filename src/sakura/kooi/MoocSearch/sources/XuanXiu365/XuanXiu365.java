@@ -45,7 +45,12 @@ public class XuanXiu365 implements Runnable {
             callback.failed("未找到答案");
             return;
         }
-        callback.completed(body.substring(start, end));
+        String answer = body.substring(start, end);
+        if (answer.trim().isEmpty()) {
+            callback.failed("未找到答案");
+            return;
+        }
+        callback.completed(answer.trim());
     }
 
 }
