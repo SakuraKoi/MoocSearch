@@ -1,5 +1,5 @@
 package sakura.kooi.MoocSearch;
 
 public class Constants {
-    public static final String BUILD_VERSION = "v0-git-6ccddf5";
+    public static final String BUILD_VERSION = "v4-git-72c292f";
 }
