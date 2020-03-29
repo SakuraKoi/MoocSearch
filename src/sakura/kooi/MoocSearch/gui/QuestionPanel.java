@@ -1,6 +1,5 @@
 package sakura.kooi.MoocSearch.gui;
 
-import lombok.Getter;
 import sakura.kooi.MoocSearch.utils.VerticalFlowLayout;
 
 import javax.swing.*;
@@ -13,6 +12,7 @@ public class QuestionPanel extends JPanel {
 
     public QuestionPanel() {
         this.setLayout(new BorderLayout());
+        this.setBackground(Color.WHITE);
         this.add(contentPane);
         contentPane.setLayout(new VerticalFlowLayout(0, 0));
     }

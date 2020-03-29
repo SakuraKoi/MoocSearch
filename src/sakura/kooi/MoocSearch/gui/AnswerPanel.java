@@ -15,6 +15,7 @@ public class AnswerPanel extends JPanel {
 
     public AnswerPanel(String source) {
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
+        this.setBackground(Color.WHITE);
         this.add(contentPane);
         lblSource.setText("["+source+"] ");
     }
