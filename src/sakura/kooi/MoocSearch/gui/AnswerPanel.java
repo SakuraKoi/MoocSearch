@@ -30,4 +30,8 @@ public class AnswerPanel extends JPanel {
         lblAnswer.setForeground(found ? new Color(0, 128, 0) : Color.RED);
         this.updateUI();
     }
+
+    public String getAnswer() {
+        return lblAnswer.getText();
+    }
 }

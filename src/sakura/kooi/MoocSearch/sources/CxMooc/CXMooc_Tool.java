@@ -6,8 +6,7 @@ import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 import sakura.kooi.MoocSearch.utils.AnswerCallback;
-
-import java.util.concurrent.atomic.AtomicLong;
+import sakura.kooi.MoocSearch.utils.RateLimiter;
 
 public class CXMooc_Tool implements Runnable {
     private String question;
@@ -17,16 +16,12 @@ public class CXMooc_Tool implements Runnable {
         this.callback = callback;
     }
 
-    private static AtomicLong delay = new AtomicLong(-1L);
+    private static RateLimiter delay = new RateLimiter();
 
     @Override
     public void run() {
-        while (System.currentTimeMillis() < delay.get()) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ignored) { }
-        }
-        delay.set(System.currentTimeMillis() + 2000);
+        delay.limit(2000);
+
         HttpResponse<JsonNode> httpResponse = Unirest.post("https://cx.icodef.com/v2/answer?platform=cx")
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .field("topic[0]", question)

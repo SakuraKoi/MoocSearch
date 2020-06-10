@@ -3,8 +3,7 @@ package sakura.kooi.MoocSearch.sources.XuanXiu365;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import sakura.kooi.MoocSearch.utils.AnswerCallback;
-
-import java.util.concurrent.atomic.AtomicLong;
+import sakura.kooi.MoocSearch.utils.RateLimiter;
 
 public class XuanXiu365 implements Runnable {
     private String question;
@@ -14,16 +13,12 @@ public class XuanXiu365 implements Runnable {
         this.callback = callback;
     }
 
-    private static AtomicLong delay = new AtomicLong(-1L);
+    private static RateLimiter delay = new RateLimiter();
 
     @Override
     public void run() {
-        while (System.currentTimeMillis() < delay.get()) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ignored) { }
-        }
-        delay.set(System.currentTimeMillis() + 1000);
+        delay.limit(1000);
+
         HttpResponse<String> httpResponse = Unirest.get("http://tiku.xuanxiu365.com/index.php")
                 .header("Referer", "http://tiku.xuanxiu365.com/index.php")
                 .queryString("time", System.currentTimeMillis())
@@ -50,7 +45,6 @@ public class XuanXiu365 implements Runnable {
             callback.failed("未找到答案");
             return;
         }
-        callback.completed(answer.trim());
+        callback.completed(answer.trim().replace("\u0001", "\n"));
     }
-
 }

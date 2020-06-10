@@ -10,16 +10,10 @@
  */
 package sakura.kooi.MoocSearch.utils;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  ** @version $Id: MultiLineLabel.java 6164 2009-02-19 18:11:32Z polle $
@@ -94,7 +88,7 @@ public class MultiLineLabel extends JPanel {
 			add(Box.createVerticalStrut(spacing));
 		}
 
-		final String strs[] = splitLines(text);
+        final String[] strs = splitLines(text);
 		JLabel l;
 		final Font font = new Font("SansSerif", fontAttributes, size);
 
@@ -132,8 +126,7 @@ public class MultiLineLabel extends JPanel {
 			return null;
 		else if (offset < 0) // one element
 		{
-			final String[] result = { str };
-			return result;
+			return new String[]{ str };
 		}
 
 		//
@@ -154,7 +147,7 @@ public class MultiLineLabel extends JPanel {
 		} while (start < len && offset != -1);
 
 		// Convert the list into an Array of Strings
-		final String result[] = new String[strings.size()];
+		final String[] result = new String[strings.size()];
 		strings.toArray(result);
 		return result;
 	}
