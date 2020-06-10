@@ -17,7 +17,9 @@ import sakura.kooi.MoocSearch.sources.XuanXiu365.XuanXiu365;
 import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan1;
 import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan2;
 import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan3;
+import sakura.kooi.MoocSearch.sources.iytwl.Iytwl;
 import sakura.kooi.MoocSearch.sources.kbm.KeBangMang;
+import sakura.kooi.MoocSearch.sources.wk92e.Moecoo;
 import sakura.kooi.MoocSearch.utils.AnswerCallback;
 
 @SuppressWarnings("SpellCheckingInspection")
@@ -56,6 +58,18 @@ public enum QuestionSources {
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new HuaKaiXiaoYuan3(question, callback);
+		}
+	},
+	IYTWL("iytwl", "题库十") {
+		@Override
+		public Runnable get(String question, AnswerCallback callback) {
+			return new Iytwl(question, callback);
+		}
+	},
+	WK92E("wk92e", "题库十一") {
+		@Override
+		public Runnable get(String question, AnswerCallback callback) {
+			return new Moecoo(question, callback);
 		}
 	};
 

@@ -44,6 +44,9 @@ public class MainGUI extends JFrame {
     private JCheckBox checkSource11;
     private JCheckBox checkSource12;
     private JCheckBox checkSource13;
+    private JCheckBox checkSource14;
+    private JSpinner spinner1;
+    private JSpinner spinner2;
 
     public MainGUI() {
         instance = this;
@@ -131,6 +134,9 @@ public class MainGUI extends JFrame {
         registerSource(checkSource4, QuestionSources.HKXY1);
         registerSource(checkSource5, QuestionSources.HKXY2);
         registerSource(checkSource6, QuestionSources.HKXY3);
+
+        registerSource(checkSource10, QuestionSources.IYTWL);
+        registerSource(checkSource11, QuestionSources.WK92E);
     }
 
     private void registerSource(JCheckBox check, QuestionSources source) {

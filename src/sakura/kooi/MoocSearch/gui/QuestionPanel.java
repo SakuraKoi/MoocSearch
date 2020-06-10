@@ -54,6 +54,7 @@ public class QuestionPanel extends JPanel {
         this.contentPane.add(answerPanel);
         this.contentPane.updateUI();
         answerPanels.add(answerPanel);
+        this.contentPane.updateUI();
         return answerPanel;
     }
 }

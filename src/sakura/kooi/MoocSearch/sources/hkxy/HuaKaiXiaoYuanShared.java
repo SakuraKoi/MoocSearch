@@ -19,8 +19,11 @@ public class HuaKaiXiaoYuanShared {
 
     public static void answer(String question, AnswerCallback callback, String type) {
         if (token == null) {
-            callback.failed("获取Token失败");
-            return;
+            refreshToken();
+            if (token == null) {
+                callback.failed("获取Token失败");
+                return;
+            }
         }
         delay.limit(500);
 
