@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.Setter;
 import sakura.kooi.MoocSearch.sources.CxMooc.CXMooc_Tool;
 import sakura.kooi.MoocSearch.sources.XuanXiu365.XuanXiu365;
+import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan1;
+import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan2;
+import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan3;
 import sakura.kooi.MoocSearch.sources.kbm.KeBangMang;
 import sakura.kooi.MoocSearch.utils.AnswerCallback;
 
@@ -35,6 +38,24 @@ public enum QuestionSources {
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new KeBangMang(question, callback);
+		}
+	},
+	HKXY1("fm210-1", "题库四") {
+		@Override
+		public Runnable get(String question, AnswerCallback callback) {
+			return new HuaKaiXiaoYuan1(question, callback);
+		}
+	},
+	HKXY2("fm210-2", "题库五") {
+		@Override
+		public Runnable get(String question, AnswerCallback callback) {
+			return new HuaKaiXiaoYuan2(question, callback);
+		}
+	},
+	HKXY3("fm210-3", "题库六") {
+		@Override
+		public Runnable get(String question, AnswerCallback callback) {
+			return new HuaKaiXiaoYuan3(question, callback);
 		}
 	};
 

@@ -128,6 +128,9 @@ public class MainGUI extends JFrame {
         registerSource(checkSource1, QuestionSources.XUANXIU365);
         registerSource(checkSource2, QuestionSources.CXMOOCTOOL);
         registerSource(checkSource3, QuestionSources.KBM);
+        registerSource(checkSource4, QuestionSources.HKXY1);
+        registerSource(checkSource5, QuestionSources.HKXY2);
+        registerSource(checkSource6, QuestionSources.HKXY3);
     }
 
     private void registerSource(JCheckBox check, QuestionSources source) {

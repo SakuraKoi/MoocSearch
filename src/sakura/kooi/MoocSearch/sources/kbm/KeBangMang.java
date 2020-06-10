@@ -40,7 +40,7 @@ public class KeBangMang implements Runnable {
                 .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36")
                 .header("x-requested-with", "XMLHttpRequest")
                 .header("cookie", "JSESSIONID="+cookie)
-                .queryString("title", question)
+                .field("title", question)
                 .asJson();
         if (httpResponse.getStatus() != 200) {
             callback.failed("HTTP错误: "+httpResponse.getStatus());

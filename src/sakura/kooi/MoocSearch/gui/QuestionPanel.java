@@ -46,6 +46,7 @@ public class QuestionPanel extends JPanel {
                 }
             }
         }
+        this.contentPane.updateUI();
     }
 
     public AnswerPanel newAnswer(String source) {
