@@ -21,7 +21,7 @@ public class KeBangMang implements Runnable {
 
     @Override
     public void run() {
-        delay.limit(1000);
+        delay.limit(500);
 
         HttpResponse<JsonNode> httpResponse = Unirest.post("https://www.150s.cn/topic/getAnswer")
                 .header(":authority", "www.150s.cn")

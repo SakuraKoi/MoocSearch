@@ -19,12 +19,13 @@ import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan2;
 import sakura.kooi.MoocSearch.sources.hkxy.HuaKaiXiaoYuan3;
 import sakura.kooi.MoocSearch.sources.iytwl.Iytwl;
 import sakura.kooi.MoocSearch.sources.kbm.KeBangMang;
+import sakura.kooi.MoocSearch.sources.shuakela.ShuaKeLa;
 import sakura.kooi.MoocSearch.sources.wk92e.Moecoo;
 import sakura.kooi.MoocSearch.utils.AnswerCallback;
 
 @SuppressWarnings("SpellCheckingInspection")
 public enum QuestionSources {
-	XUANXIU365("xuanxiu365", "题库一") {
+	XUANXIU365_COM("xuanxiu365", "题库一") { // http://tiku.xuanxiu365.com/
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new XuanXiu365(question, callback);
@@ -36,40 +37,46 @@ public enum QuestionSources {
 			return new CXMooc_Tool(question, callback);
 		}
 	},
-	KBM("150s", "题库三") {
+	WWW_150S_CN("150s", "题库三") { // https://www.150s.cn/
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new KeBangMang(question, callback);
 		}
 	},
-	HKXY1("fm210-1", "题库四") {
+	FM210_CN_1("fm210-1", "题库四") { // https://jk.fm210.cn/
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new HuaKaiXiaoYuan1(question, callback);
 		}
 	},
-	HKXY2("fm210-2", "题库五") {
+	FM210_CN_2("fm210-2", "题库五") { // https://jk.fm210.cn/
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new HuaKaiXiaoYuan2(question, callback);
 		}
 	},
-	HKXY3("fm210-3", "题库六") {
+	FM210_CN_3("fm210-3", "题库六") { // https://jk.fm210.cn/
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new HuaKaiXiaoYuan3(question, callback);
 		}
 	},
-	IYTWL("iytwl", "题库十") {
+	IYTWL_CN("iytwl", "题库十") { // https://api.iytwl.cn/doc/wangke.html
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new Iytwl(question, callback);
 		}
 	},
-	WK92E("wk92e", "题库十一") {
+	WK_92E_WIN("wk92e", "题库十一") { // https://wk.92e.win/wk.html
 		@Override
 		public Runnable get(String question, AnswerCallback callback) {
 			return new Moecoo(question, callback);
+		}
+	},
+	SHUAKELA_TOP("shuakela", "题库十四") { // http://ct.shuakela.top/
+		@Override
+		public Runnable get(String question, AnswerCallback callback) {
+			return new ShuaKeLa(question, callback);
 		}
 	};
 
