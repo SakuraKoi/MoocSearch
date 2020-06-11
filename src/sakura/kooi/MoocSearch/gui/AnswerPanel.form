@@ -15,7 +15,7 @@
           <text value="[题库]"/>
         </properties>
       </component>
-      <component id="fb33d" class="sakura.kooi.MoocSearch.utils.MultiLineLabel" binding="lblAnswer" custom-create="true">
+      <component id="fb33d" class="sakura.kooi.MoocSearch.gui.MultiLineLabel" binding="lblAnswer" custom-create="true">
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>

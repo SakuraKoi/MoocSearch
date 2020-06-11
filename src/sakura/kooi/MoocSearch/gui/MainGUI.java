@@ -29,7 +29,7 @@ public class MainGUI extends JFrame {
 
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
-    @Getter private JTextArea textQuestions;
+    @Getter private PlaceHolderTextArea textQuestions;
     @Getter private JPanel panelAnswerContainer;
     private JPanel panelAnswers;
     private JButton btnScriptZhihuishu;
@@ -182,5 +182,10 @@ public class MainGUI extends JFrame {
             configuration.put(source.getKey(), check.isSelected());
             saveConfiguration();
         });
+    }
+
+    private void createUIComponents() {
+        textQuestions = new PlaceHolderTextArea();
+        textQuestions.setPlaceholder("按 Ctrl+Enter 开始查询");
     }
 }

@@ -1,7 +1,5 @@
 package sakura.kooi.MoocSearch.gui;
 
-import sakura.kooi.MoocSearch.utils.VerticalFlowLayout;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

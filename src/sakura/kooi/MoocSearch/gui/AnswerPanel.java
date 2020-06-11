@@ -1,7 +1,6 @@
 package sakura.kooi.MoocSearch.gui;
 
 import lombok.Getter;
-import sakura.kooi.MoocSearch.utils.MultiLineLabel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

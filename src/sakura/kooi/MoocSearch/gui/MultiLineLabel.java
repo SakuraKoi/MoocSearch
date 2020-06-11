@@ -8,7 +8,7 @@
  *
  * @Author SakuraKooi (sakurakoi993519867@gmail.com)
  */
-package sakura.kooi.MoocSearch.utils;
+package sakura.kooi.MoocSearch.gui;
 
 import javax.swing.*;
 import java.awt.*;
