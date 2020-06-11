@@ -1,12 +1,14 @@
 package sakura.kooi.MoocSearch.gui;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import kong.unirest.Unirest;
 import lombok.Getter;
 import org.apache.commons.codec.binary.StringUtils;
-import org.fusesource.jansi.AnsiConsole;
-import org.json.JSONObject;
 import sakura.kooi.MoocSearch.Constants;
 import sakura.kooi.MoocSearch.sources.QuestionSources;
-import sakura.kooi.MoocSearch.utils.AnswerTask;
+import sakura.kooi.MoocSearch.utils.AnswerQueue;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,12 +47,11 @@ public class MainGUI extends JFrame {
     private JCheckBox checkSource12;
     private JCheckBox checkSource13;
     private JCheckBox checkSource14;
-    private JSpinner spinner1;
-    private JSpinner spinner2;
+    private JSpinner connectTimeout;
+    private JSpinner socketTimeout;
 
     public MainGUI() {
         instance = this;
-        AnsiConsole.systemInstall();
         this.setContentPane(contentPane);
         this.setPreferredSize(new Dimension(880, 520));
         this.setTitle("MoocSearch 多题库联合慕课答案查询 | 构建版本 " + Constants.BUILD_VERSION + " | SakuraKooi ~☆");
@@ -76,6 +77,7 @@ public class MainGUI extends JFrame {
         });
         btnScriptZhihuishu.addActionListener(e -> copyZhihuishuScript());
         loadConfiguration();
+        registerConfiguration();
         registerSources();
     }
 
@@ -83,7 +85,7 @@ public class MainGUI extends JFrame {
         File configFile = new File("MoocSearch.json");
         if (configFile.exists()) {
             try {
-                configuration = new JSONObject(StringUtils.newStringUtf8(Files.readAllBytes(configFile.toPath())));
+                configuration = JSON.parseObject(StringUtils.newStringUtf8(Files.readAllBytes(configFile.toPath())));
             } catch (IOException e) {
                 e.printStackTrace();
                 configuration = new JSONObject();
@@ -98,7 +100,7 @@ public class MainGUI extends JFrame {
         if (configFile.exists()) configFile.delete();
         try {
             configFile.createNewFile();
-            Files.write(configFile.toPath(), StringUtils.getBytesUtf8(configuration.toString()));
+            Files.write(configFile.toPath(), StringUtils.getBytesUtf8(JSON.toJSONString(configuration, SerializerFeature.PrettyFormat)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,7 +118,8 @@ public class MainGUI extends JFrame {
     private void answerQuestions(String[] questions) {
         tabbedPane.setSelectedIndex(1);
         panelAnswers.requestFocus();
-        Stream.of(questions).forEach(AnswerTask::answer);
+        panelAnswerContainer.removeAll();
+        Stream.of(questions).forEach(question -> threadPool.submit(() -> AnswerQueue.answer(question)));
     }
 
     private void copyZhihuishuScript() {
@@ -128,20 +131,49 @@ public class MainGUI extends JFrame {
     }
 
     private void registerSources() {
-        registerSource(checkSource1, QuestionSources.XUANXIU365);
+        registerSource(checkSource1, QuestionSources.XUANXIU365_COM);
         registerSource(checkSource2, QuestionSources.CXMOOCTOOL);
-        registerSource(checkSource3, QuestionSources.KBM);
-        registerSource(checkSource4, QuestionSources.HKXY1);
-        registerSource(checkSource5, QuestionSources.HKXY2);
-        registerSource(checkSource6, QuestionSources.HKXY3);
+        registerSource(checkSource3, QuestionSources.WWW_150S_CN);
+        registerSource(checkSource4, QuestionSources.FM210_CN_1);
+        registerSource(checkSource5, QuestionSources.FM210_CN_2);
+        registerSource(checkSource6, QuestionSources.FM210_CN_3);
 
-        registerSource(checkSource10, QuestionSources.IYTWL);
-        registerSource(checkSource11, QuestionSources.WK92E);
+        registerSource(checkSource10, QuestionSources.IYTWL_CN);
+        registerSource(checkSource11, QuestionSources.WK_92E_WIN);
+
+        registerSource(checkSource14, QuestionSources.SHUAKELA_TOP);
+    }
+
+    private void registerConfiguration() {
+        SpinnerNumberModel connectTimeoutModel = new SpinnerNumberModel(
+                configuration.containsKey("connectTimeOut") ? configuration.getIntValue("connectTimeOut") : 2000
+                , 1000, 30000, 500);
+        connectTimeout.setModel(connectTimeoutModel);
+        connectTimeoutModel.addChangeListener(e -> {
+            if (Unirest.config().isRunning()) Unirest.config().reset();
+            Unirest.config().connectTimeout(connectTimeoutModel.getNumber().intValue());
+            configuration.put("connectTimeOut", connectTimeoutModel.getValue());
+            saveConfiguration();
+        });
+
+        SpinnerNumberModel socketTimeoutModel = new SpinnerNumberModel(
+                configuration.containsKey("socketTimeout") ? configuration.getIntValue("socketTimeout") : 10000
+                , 1000, 30000, 500);
+        socketTimeout.setModel(socketTimeoutModel);
+        socketTimeoutModel.addChangeListener(e -> {
+            if (Unirest.config().isRunning()) Unirest.config().reset();
+            Unirest.config().socketTimeout(socketTimeoutModel.getNumber().intValue());
+            configuration.put("socketTimeout", socketTimeout.getValue());
+            saveConfiguration();
+        });
+
+        Unirest.config().connectTimeout(connectTimeoutModel.getNumber().intValue());
+        Unirest.config().socketTimeout(socketTimeoutModel.getNumber().intValue());
     }
 
     private void registerSource(JCheckBox check, QuestionSources source) {
         boolean enabled =
-                !configuration.has(source.getKey()) ||
+                !configuration.containsKey(source.getKey()) ||
                 configuration.getBoolean(source.getKey());
         check.setSelected(enabled);
         source.setEnabled(enabled);

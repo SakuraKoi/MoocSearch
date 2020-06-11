@@ -34,6 +34,9 @@ public class Moecoo implements Runnable {
         if (answer.equals("查无此题") || answer.trim().isEmpty()) {
             callback.failed("未找到答案");
             return;
+        } else if (answer.equals("题目过短")) {
+            callback.failed("题目过短");
+            return;
         }
         callback.completed(answer.trim().replace("\u0001", "\n"));
     }

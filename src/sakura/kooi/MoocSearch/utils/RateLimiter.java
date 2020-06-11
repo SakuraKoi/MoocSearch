@@ -1,15 +1,13 @@
 package sakura.kooi.MoocSearch.utils;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 public class RateLimiter {
-    private AtomicLong delay = new AtomicLong(-1L);
-    public void limit(long time) {
-        while (System.currentTimeMillis() < delay.get()) {
+    private long delay = -1L;
+    public synchronized void limit(long time) {
+        while (System.currentTimeMillis() < delay) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ignored) { }
         }
-        delay.set(System.currentTimeMillis() + time);
+        delay = System.currentTimeMillis() + time;
     }
 }

@@ -43,7 +43,6 @@ public class HuaKaiXiaoYuanShared {
                 .field("token", encrypt(question, HuaKaiXiaoYuanShared.token))
                 .field("type", type)
                 .field("question", question)
-                .proxy("127.0.0.1", 8899)
                 .asJson();
         if (httpResponse.getStatus() != 200) {
             callback.failed("HTTP错误: "+httpResponse.getStatus());
@@ -56,7 +55,7 @@ public class HuaKaiXiaoYuanShared {
             return;
         }
         String answer = body.getString("da");
-        if ("\n".equals(answer) || answer.trim().isEmpty()) {
+        if ("\n".equals(answer) || answer.contains("还未收录") || answer.trim().isEmpty()) {
             callback.failed("未找到答案");
             return;
         }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import sakura.kooi.MoocSearch.utils.MultiLineLabel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class AnswerPanel extends JPanel {
@@ -14,10 +15,13 @@ public class AnswerPanel extends JPanel {
     private boolean found = false;
 
     public AnswerPanel(String source) {
-        this.setLayout(new FlowLayout(FlowLayout.LEADING));
+        FlowLayout layout = new FlowLayout(FlowLayout.LEADING);
+        this.setLayout(layout);
         this.setBackground(Color.WHITE);
         this.add(contentPane);
-        lblSource.setText("["+source+"] ");
+        layout.setHgap(0);
+        lblSource.setText(" ["+source+"] ");
+        lblSource.setBorder(new EmptyBorder(0, 5, 0, 0));
     }
 
     private void createUIComponents() {

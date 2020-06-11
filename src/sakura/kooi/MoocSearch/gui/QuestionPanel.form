@@ -16,12 +16,6 @@
           <text value="Question"/>
         </properties>
       </component>
-      <component id="5a3be" class="javax.swing.JLabel" binding="lblAnswering">
-        <constraints/>
-        <properties>
-          <text value=" &gt; 查询中..."/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

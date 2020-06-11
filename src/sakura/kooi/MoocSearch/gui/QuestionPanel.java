@@ -9,21 +9,19 @@ import java.util.ArrayList;
 public class QuestionPanel extends JPanel {
     private JPanel contentPane;
     private JLabel lblQuestion;
-    private JLabel lblAnswering;
     private ArrayList<AnswerPanel> answerPanels = new ArrayList<>();
 
     public QuestionPanel() {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
         this.add(contentPane);
-        contentPane.setLayout(new VerticalFlowLayout(0, 0));
+        contentPane.setLayout(new VerticalFlowLayout(0, 0, 5, 0));
     }
 
     public void setQuestion(String question) {
         lblQuestion.setText(question);
     }
     public void completeAnswer() {
-        this.contentPane.remove(lblAnswering);
         boolean found = false;
         for (AnswerPanel answerPanel : answerPanels) {
             if (answerPanel.isFound()) {
@@ -45,6 +43,10 @@ public class QuestionPanel extends JPanel {
                     }
                 }
             }
+        } else {
+            for (AnswerPanel answerPanel : answerPanels)
+                    this.contentPane.remove(answerPanel);
+            newAnswer("全部题库").setAnswer("未找到答案", false);
         }
         this.contentPane.updateUI();
     }
