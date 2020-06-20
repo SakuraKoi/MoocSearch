@@ -7,12 +7,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="flatlaf-0.21" level="project" />
     <orderEntry type="library" name="lombok" level="project" />
-    <orderEntry type="library" name="commons-codec-1.11" level="project" />
-    <orderEntry type="library" name="gson-2.8.5" level="project" />
+    <orderEntry type="library" name="unirest-java-3.6.01" level="project" />
     <orderEntry type="library" name="guava-28.2-jre" level="application" />
-    <orderEntry type="library" name="SimpleSakuraLogger" level="application" />
+    <orderEntry type="library" name="SakuraLogger-slf4j" level="application" />
     <orderEntry type="library" name="fastjson-1.2.68" level="application" />
+    <orderEntry type="library" name="flatlaf-0.21" level="application" />
   </component>
 </module>
