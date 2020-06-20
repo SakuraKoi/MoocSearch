@@ -9,6 +9,7 @@ import sakura.kooi.MoocSearch.sources.QuestionSources;
 import sakura.kooi.logger.Logger;
 
 import java.awt.*;
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +79,8 @@ public class AnswerQueue {
             logger.warnEx("{} 查询失败 {} -> {}", e, source.getName(), question, e.getMessage());
             if (e.getCause() instanceof SocketTimeoutException) {
                 EventQueue.invokeLater(() -> answerPanel.setAnswer("请求超时", false));
+            } else if (e.getCause() instanceof ConnectException) {
+                EventQueue.invokeLater(() -> answerPanel.setAnswer("无法连接到服务器", false));
             } else {
                 EventQueue.invokeLater(() -> answerPanel.setAnswer("查询失败", false));
             }
